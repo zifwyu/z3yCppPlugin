@@ -2,6 +2,7 @@
 * @file	iunknown.h
 * @brief 定义了一些基础宏和函数，以及插件框架的最根本基类IUnknown
 * 
+* @version	1.0
 * @author	孙鹏宇
 * @date		2025.5.13
 * @note

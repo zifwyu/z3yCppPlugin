@@ -2,6 +2,7 @@
 * @file	object_ptr.h
 * @brief 定义了智能指针类模板，外界调用插件时，统一使用该模板管理插件对象指针
 *
+* @version	1.0
 * @author	孙鹏宇
 * @date		2025.5.14
 */
@@ -11,10 +12,10 @@
 #define Z3Y_CORE_OBJECT_PTR_H
 
 #include "iunknown.h"
+#include "portability/z3y_export.h"
 
 Z3Y_BEGIN_NAMESPACE
 
-// todo 需要包含对应的头文件
 Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const uint64_t& interface_id, IUnknown** ppv);
 
 /**
