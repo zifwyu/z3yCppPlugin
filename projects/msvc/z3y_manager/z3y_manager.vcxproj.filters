@@ -19,6 +19,9 @@
     <Filter Include="Interface Files\module">
       <UniqueIdentifier>{816d1e3c-8cf6-4636-b6dd-55ab4bf9f66c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface Files\portability">
+      <UniqueIdentifier>{d8417a5c-a4b8-447c-b523-9ceff4f3c462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -30,12 +33,27 @@
     <ClInclude Include="..\..\..\interface\core\iunknown.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\object_ptr.h">
+      <Filter>Interface Files\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_unix.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_win.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\z3y_manager\module.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -156,10 +156,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\interface\core\iunknown.h" />
+    <ClInclude Include="..\..\..\interface\core\object_ptr.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_unix.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_win.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\core\z3y_manager\module.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

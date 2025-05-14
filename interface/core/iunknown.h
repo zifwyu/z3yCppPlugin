@@ -73,6 +73,8 @@ class IUnknown
 	* @param[in] interface_id 接口标识符，每个接口的标识符都应是全局唯一的。
 	* @param[out] ppv 指针的地址，若当前对象支持iid所对应的接口，则将当前对象的指针放入ppv指向的地址中。
 	* @return 若当前对象支持iid所对应的接口，则返回true；否则返回false
+	* @note
+	*	转换成功后，当前对象应自动增加引用计数
 	*/
 	virtual bool QueryInterface(const uint64_t& interface_id, IUnknown** ppv) const = 0;
 
