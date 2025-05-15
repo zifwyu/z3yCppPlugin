@@ -158,6 +158,9 @@
     <ClInclude Include="..\..\..\interface\core\iunknown.h" />
     <ClInclude Include="..\..\..\interface\core\object_ptr.h" />
     <ClInclude Include="..\..\..\interface\core\portability\z3y_export.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl_unix.h" />
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl_win.h" />
     <ClInclude Include="..\..\..\interface\core\portability\z3y_unix.h" />
     <ClInclude Include="..\..\..\interface\core\portability\z3y_win.h" />
     <ClInclude Include="framework.h" />

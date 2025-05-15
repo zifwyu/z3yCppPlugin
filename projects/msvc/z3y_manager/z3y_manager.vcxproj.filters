@@ -45,6 +45,15 @@
     <ClInclude Include="..\..\..\interface\core\portability\z3y_win.h">
       <Filter>Interface Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl_unix.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl_win.h">
+      <Filter>Interface Files\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

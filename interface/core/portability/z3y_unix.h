@@ -7,10 +7,11 @@
 *
 * @version	0.1
 * @author	ÀÔ≈Ù”Ó
-* @date		2025.5.14
+* @date		2025.5.15
+* @todo		Œ¥ µœ÷
 */
 #pragma once
-#ifndef Z3Y_UNIX_PORTABILITY_H
-#define Z3Y_UNIX_PORTABILITY_H
+#ifndef Z3Y_PORTABILITY_UNIX_H
+#define Z3Y_PORTABILITY_UNIX_H
 
-#endif // !Z3Y_UNIX_PORTABILITY_H
+#endif // !Z3Y_PORTABILITY_UNIX_H

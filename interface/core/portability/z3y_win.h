@@ -11,8 +11,8 @@
 */
 
 #pragma once
-#ifndef Z3Y_WIN_PORTABILITY_H
-#define Z3Y_WIN_PORTABILITY_H
+#ifndef Z3Y_PORTABILITY_WIN_H
+#define Z3Y_PORTABILITY_WIN_H
 
 #ifdef _AFXDLL //当项目使用 ​MFC动态链接库（DLL模式）​​ 时，此分支生效
 	#define VC_EXTRALEAN //精简MFC头文件内容，排除不常用组件以加快编译速度
@@ -41,4 +41,4 @@
 
 #define Z3Y_LOCAL_API
 
-#endif // !Z3Y_WIN_PORTABILITY_H
+#endif // !Z3Y_PORTABILITY_WIN_H
