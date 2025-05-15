@@ -21,6 +21,10 @@
 
 Z3Y_BEGIN_NAMESPACE
 
+#ifndef InterfaceID
+#define InterfaceID uint64_t //接口的标识符，每个接口标识符是全局唯一的
+#endif
+
 /**
 * @brief 字符串哈希算法，命名以下划线起始，插件库内部使用
 * 
@@ -58,7 +62,7 @@ inline uint64_t _HashKey(const char* str)
 public: \
     virtual ~interface_name() {}         \
     static const char* GetInterfaceName() { return #interface_name; }   \
-    static uint64_t GetInterfaceID() { static uint64_t interface_id = z3y::_HashKey(#interface_name); return interface_id; }
+    static InterfaceID GetInterfaceID() { static InterfaceID interface_id = z3y::_HashKey(#interface_name); return interface_id; }
 
 
 /**
@@ -77,7 +81,7 @@ class IUnknown
 	* @note
 	*	转换成功后，当前对象应自动增加引用计数
 	*/
-	virtual bool QueryInterface(const uint64_t& interface_id, IUnknown** ppv) const = 0;
+	virtual bool QueryInterface(const InterfaceID& interface_id, IUnknown** ppv) const = 0;
 
 	/**
 	* @brief 引用计数加1

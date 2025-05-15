@@ -16,7 +16,7 @@
 
 Z3Y_BEGIN_NAMESPACE
 
-Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const uint64_t& interface_id, IUnknown** ppv);
+Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const InterfaceID& interface_id, IUnknown** ppv);
 
 /**
 * @brief 智能指针类模板
