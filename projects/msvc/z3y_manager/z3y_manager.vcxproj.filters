@@ -57,6 +57,9 @@
     <ClInclude Include="..\..\..\interface\core\module\class_entry.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\module\normal_object.h">
+      <Filter>Interface Files\module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
