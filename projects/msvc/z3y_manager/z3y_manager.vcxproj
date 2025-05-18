@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\..\interface\core\iunknown.h" />
     <ClInclude Include="..\..\..\interface\core\module\class_entry.h" />
     <ClInclude Include="..\..\..\interface\core\module\normal_object.h" />
+    <ClInclude Include="..\..\..\interface\core\module\singleton_manager.h" />
     <ClInclude Include="..\..\..\interface\core\object_ptr.h" />
     <ClInclude Include="..\..\..\interface\core\portability\z3y_export.h" />
     <ClInclude Include="..\..\..\interface\core\portability\z3y_export_impl.h" />

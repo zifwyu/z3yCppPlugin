@@ -28,6 +28,16 @@ template<class ImplClass>
 class NormalObject : public ImplClass
 {
 public:
+
+	/**
+	* @brief 创建实现类对象
+	* @param[in] interface_id 接口标识符
+	* @return 返回创建出来的对象指针
+	* @note
+	*	1、NormalObject是类模板，真正实例化出来的是NormalObject<ImplClass>类的对象，而不是ImplClass
+	*	2、NormalObject<ImplClass>类的对象实例化后，会自身维护引用计数
+	*	3、返回对象指针，是由NormalObject<ImplClass>类的对象，通过QueryInterface向上转换得到的，实际指向的对象还是NormalObject<ImplClass>类的对象
+	*/
 	static IUnknown* Create(InterfaceID interface_id)
 	{
 		IUnknown* ret{ nullptr };
