@@ -63,6 +63,9 @@
     <ClInclude Include="..\..\..\interface\core\module\singleton_manager.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\module\singleton_object.h">
+      <Filter>Interface Files\module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
