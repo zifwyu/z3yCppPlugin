@@ -1,6 +1,6 @@
 /**
-* @file	iunknown.h
-* @brief 定义了一些基础宏和函数，以及插件框架的最根本基类IUnknown
+* @file	IObject.h
+* @brief 定义了一些基础宏和函数，以及插件框架的最根本基类IObject
 * 
 * @version	1.0
 * @author	孙鹏宇
@@ -11,8 +11,8 @@
 */
 
 #pragma once
-#ifndef Z3Y_CORE_IUNKONWN_H
-#define Z3Y_CORE_IUNKONWN_H
+#ifndef Z3Y_CORE_IOBJECT_H
+#define Z3Y_CORE_IOBJECT_H
 
 #include <cstdint>
 
@@ -68,9 +68,9 @@ public: \
 /**
 * @brief 插件框架中，所有插件的最根本基类
 */
-class IUnknown
+class IObject
 {
-	Z3Y_DEFINE_INTERFACE_ID(IUnknown)
+	Z3Y_DEFINE_INTERFACE_ID(IObject)
 
 	/**
 	* @brief 接口查询和转换函数
@@ -81,7 +81,7 @@ class IUnknown
 	* @note
 	*	转换成功后，当前对象应自动增加引用计数
 	*/
-	virtual bool QueryInterface(const InterfaceID& interface_id, IUnknown** ppv) const = 0;
+	virtual bool QueryInterface(const InterfaceID& interface_id, IObject** ppv) const = 0;
 
 	/**
 	* @brief 引用计数加1

@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\interface\core\iunknown.h" />
+    <ClInclude Include="..\..\..\interface\core\iobject.h" />
     <ClInclude Include="..\..\..\interface\core\module\class_entry.h" />
     <ClInclude Include="..\..\..\interface\core\module\class_macro.h" />
     <ClInclude Include="..\..\..\interface\core\module\normal_object.h" />

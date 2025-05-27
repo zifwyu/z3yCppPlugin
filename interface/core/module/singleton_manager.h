@@ -2,7 +2,7 @@
 #ifndef Z3Y_CORE_SINGLETON_MANAGER_H
 #define Z3Y_CORE_SINGLETON_MANAGER_H
 
-#include "../iunknown.h"
+#include "../IObject.h"
 #include <atomic>
 
 Z3Y_BEGIN_NAMESPACE

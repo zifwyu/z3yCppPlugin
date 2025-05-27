@@ -11,7 +11,7 @@
 #ifndef Z3Y_CORE_SINGLETON_OBJECT_H
 #define Z3Y_CORE_SINGLETON_OBJECT_H
 
-#include "../iunknown.h"
+#include "../IObject.h"
 #include "singleton_manager.h"
 #include <mutex>
 
@@ -32,7 +32,7 @@ public:
 	*	2、SingletonObject<ImplClass>类的对象实例化后，会自身维护引用计数
 	*	3、返回对象指针，是由SingletonObject<ImplClass>类的对象，通过QueryInterface向上转换得到的，实际指向的对象还是SingletonObject<ImplClass>类的对象
 	*/
-	static IUnknown* Create(InterfaceID interface_id)
+	static IObject* Create(InterfaceID interface_id)
 	{
 		if (!Instance())
 		{
@@ -44,7 +44,7 @@ public:
 				});
 		}
 
-		IUnknown* p_object{ nullptr };
+		IObject* p_object{ nullptr };
 		Instance()->QueryObject(interface_id, p_object);
 
 		return p_object;
@@ -64,7 +64,7 @@ protected:
 		}
 	}
 
-	virtual bool QueryInterface(const InterfaceID& interface_id, IUnknown** ppv) const override
+	virtual bool QueryInterface(const InterfaceID& interface_id, IObject** ppv) const override
 	{
 		return ImplClass::_QueryObject(this, interface_id, ppv);
 	}

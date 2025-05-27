@@ -11,12 +11,12 @@
 #ifndef Z3Y_CORE_OBJECT_PTR_H
 #define Z3Y_CORE_OBJECT_PTR_H
 
-#include "iunknown.h"
+#include "IObject.h"
 #include "portability/z3y_export.h"
 
 Z3Y_BEGIN_NAMESPACE
 
-Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const InterfaceID& interface_id, IUnknown** ppv);
+Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const InterfaceID& interface_id, IObject** ppv);
 
 /**
 * @brief 智能指针类模板
@@ -39,7 +39,7 @@ public:
 		CreateObject(impl_class_id, InterfaceClass::GetInterfaceID(), Address());
 	}
 
-	ObjectPtr(const IUnknown* p_other)
+	ObjectPtr(const IObject* p_other)
 		: p_impl_class_(nullptr)
 	{
 		operator=(p_other);
@@ -66,7 +66,7 @@ public:
 	/**
 	* @brief 释放管理的裸指针
 	* @note
-	*	插件框架中，所有的实现类都继承于IUnknown，所以都有Release()，用来减少引用计数
+	*	插件框架中，所有的实现类都继承于IObject，所以都有Release()，用来减少引用计数
 	*/
 	void Release()
 	{
@@ -107,7 +107,7 @@ public:
 		// GetInterfaceID()的原理是接口名称字符串哈希算法，接口名称不同，结果肯定不同
 		// todo 这里要测试，是否是无用逻辑要不要删除
 		if (InterfaceClass::GetInterfaceID() == OtherInterfaceClsss::GetInterfaceID()
-			|| InterfaceClass::GetInterfaceID() == IUnknown::GetInterfaceID())
+			|| InterfaceClass::GetInterfaceID() == IObject::GetInterfaceID())
 		{
 			if (other)
 			{
@@ -125,7 +125,7 @@ public:
 		return operator=(other.GetRawPoint());
 	}
 
-	ObjectPtr<InterfaceClass>& operator=(const IUnknown* p_other)
+	ObjectPtr<InterfaceClass>& operator=(const IObject* p_other)
 	{
 		if (p_impl_class_ != p_other)
 		{
@@ -133,14 +133,14 @@ public:
 
 			if (p_other)
 			{
-				if (InterfaceClass::GetInterfaceID() == IUnknown::GetInterfaceID())
+				if (InterfaceClass::GetInterfaceID() == IObject::GetInterfaceID())
 				{
 					p_other->AddRef();
 
 					// 这里必须保证p_other指针是非const的，只是因为接口传递才变为const
 					// 若p_other本身就是const，这里解除const会导致未定义行为
 					// todo 这个找机会测一下，看看会有什么未定义行为
-					p_impl_class_ = static<InterfaceClass*>(const_cast<IUnknown*>(p_other));
+					p_impl_class_ = static<InterfaceClass*>(const_cast<IObject*>(p_other));
 				}
 				else
 				{
@@ -207,17 +207,17 @@ private:
 	*	该函数用于拿到指针地址后，直接修改指针本身
 	*	不应被外界调用
 	*/
-	IUnknown** Address()
+	IObject** Address()
 	{
 		Release();
-		return reinterpret_cast<IUnknown**>(&p_impl_class_);
+		return reinterpret_cast<IObject**>(&p_impl_class_);
 	}
 
 private:
 	InterfaceClass* p_impl_class_; /// 接口类型的指针，指向的是实现类的对象。
 };
 
-using AnyObjectPtr = ObjectPtr<IUnknown>;
+using AnyObjectPtr = ObjectPtr<IObject>;
 
 Z3Y_END_NAMESPACE
 

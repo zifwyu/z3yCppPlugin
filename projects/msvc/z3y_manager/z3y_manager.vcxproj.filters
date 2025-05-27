@@ -30,7 +30,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\interface\core\iunknown.h">
+    <ClInclude Include="..\..\..\interface\core\iobject.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\interface\core\object_ptr.h">

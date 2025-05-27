@@ -11,7 +11,7 @@
 #ifndef Z3Y_CORE_NORMAL_OBJECT_H
 #define Z3Y_CORE_NORMAL_OBJECT_H
 
-#include "../iunknown.h"
+#include "../IObject.h"
 #include <atomic>
 
 Z3Y_BEGIN_NAMESPACE
@@ -22,7 +22,7 @@ Z3Y_BEGIN_NAMESPACE
 *	插件框架中，实现接口的类并不是最下层的类，它还有子类，就是插件对象构建器类
 *	接口的实现类，只需要专注实现接口功能即可，没有普通类和单例类之分。
 *	具体是普通类还是单例，可以调用不同构建器创建
-*	构建器类会继承接口的实现类，并实现IUnknown类的纯虚函数
+*	构建器类会继承接口的实现类，并实现IObject类的纯虚函数
 */
 template<class ImplClass>
 class NormalObject : public ImplClass
@@ -38,9 +38,9 @@ public:
 	*	2、NormalObject<ImplClass>类的对象实例化后，会自身维护引用计数
 	*	3、返回对象指针，是由NormalObject<ImplClass>类的对象，通过QueryInterface向上转换得到的，实际指向的对象还是NormalObject<ImplClass>类的对象
 	*/
-	static IUnknown* Create(InterfaceID interface_id)
+	static IObject* Create(InterfaceID interface_id)
 	{
-		IUnknown* ret{ nullptr };
+		IObject* ret{ nullptr };
 
 		NormalObject<ImplClass>* p = new NormalObject<ImplClass>();
 
@@ -62,7 +62,7 @@ protected:
 
 	virtual ~NormalObject() {}
 
-	virtual bool QueryInterface(const InterfaceID& interface_id, IUnknown** ppv) const override
+	virtual bool QueryInterface(const InterfaceID& interface_id, IObject** ppv) const override
 	{
 		return ImplClass::_QueryObject(this, interface_id, ppv);
 	}

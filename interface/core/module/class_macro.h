@@ -19,7 +19,7 @@
 public: \
 	static const char* _GetImplClassID() { return impl_class_id;} \
 	static const char* _GetImplClassName() {return #impl_class_name;} \
-	static bool _QueryObject(const impl_class_name* self, z3y::InterfaceID interface_id, z3y::IUnknown** ppv) \
+	static bool _QueryObject(const impl_class_name* self, z3y::InterfaceID interface_id, z3y::IObject** ppv) \
 	{
 
 /**
@@ -28,8 +28,8 @@ public: \
 *	具体什么场景下用？为什么有这个需求？应当时确定知道实现类不会被实例化，还有子类继承的时候使用。
 *	有必要这样吗？多定义两个函数也没什么，还是防止使用者错误的将不该被实例化的实现类给实例化出来
 */
-#define Z3Y_BEGIN_IMPL_CLASS_DECLARE(impl_class_name, impl_class_id) \
-	static bool _QueryObject(const impl_class_name* self, z3y::InterfaceID interface_id, z3y::IUnknown** ppv) \
+#define Z3Y_BEGIN_IMPL_CLASS_DECLARE0(impl_class_name, impl_class_id) \
+	static bool _QueryObject(const impl_class_name* self, z3y::InterfaceID interface_id, z3y::IObject** ppv) \
 	{
 
 /**
@@ -43,7 +43,7 @@ public: \
 		{ \
 			if(self) \
 			{ \
-				*ppv = static_cast<z3y::IUnknown*>(static_cast<interface_name*>(self)); \
+				*ppv = static_cast<z3y::IObject*>(static_cast<z3y::interface_name*>(self)); \
 				(*ppv)->AddRef(); \
 			} \
 			return true; \

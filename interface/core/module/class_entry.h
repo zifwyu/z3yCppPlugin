@@ -11,11 +11,11 @@
 #ifndef Z3Y_CORE_CLASS_ENTRY_H
 #define Z3Y_CORE_CLASS_ENTRY_H
 
-#include "../iunknown.h"
+#include "../IObject.h"
 
 Z3Y_BEGIN_NAMESPACE
 
-using FuncPtrObjectCreator = IUnknown* (*)(InterfaceID interface_id);
+using FuncPtrObjectCreator = IObject* (*)(InterfaceID interface_id);
 using FuncPtrHasInterfaceID = bool (*)(InterfaceID interface_id);
 
 // todo 为什么只定义了单例模式？为什么是10？
