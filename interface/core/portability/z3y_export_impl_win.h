@@ -1,13 +1,13 @@
 /**
 * @file	z3y_export_impl_win.h
-* @brief ʵ����Windowsƽ̨�¼��غ�ж��DLL�Ľӿ�
+* @brief 实现了Windows平台下加载和卸载DLL的接口
 * @note
-*	������Ϊ�˿�ƽ̨�������������˿�ܵļ��غ�ж��DLL�ӿ�
-*   Ȼ���ڲ�ͬͷ�ļ��У�ʹ��ƽ̨APIʵ�ֽӿ�
-*	ʹ��ʱͨ����ѡ������ĸ�ƽ̨��ͷ�ļ�
+*	这里是为了跨平台，插件框架声明了框架的加载和卸载DLL接口
+*   然后在不同头文件中，使用平台API实现接口
+*	使用时通过宏选择包含哪个平台的头文件
 *
 * @version	1.0
-* @author	������
+* @author	孙鹏宇
 * @date		2025.5.15
 */
 
@@ -19,12 +19,12 @@
 
 HMODULE z3yLoadLibrary(const char* file_name)
 {
-	// LOAD_WITH_ALTERED_SEARCH_PATH����ϵͳDLL����˳���DLL����Ŀ¼��ʼ��
-	HMODULE handle_dll = LoadLibraryExA(file_name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+    // LOAD_WITH_ALTERED_SEARCH_PATH，让系统DLL搜索顺序从DLL所在目录开始。
+    HMODULE handle_dll = LoadLibraryExA(file_name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 
-    // ��DLL���ҵ�z3yInitPlugin�ĺ�����ַ��������
-    // �����ǳ�ʼ�����������ʼ��ʧ�ܣ���ж�ز��
-    // todo z3yInitPlugin�о�������ʲô Ϊʲôֻ��GUN����������Ҫ��msvcΪʲô���ã�
+    // 在DLL中找到z3yInitPlugin的函数地址，并调用
+    // 作用是初始化插件，若初始化失败，就卸载插件
+    // todo z3yInitPlugin中具体做了什么 为什么只有GUN编译器才需要，msvc为什么不用？
 #ifdef __GNUC__
     using FuncPtr = bool (*)(HMODULE, HMODULE);
 
@@ -42,7 +42,7 @@ HMODULE z3yLoadLibrary(const char* file_name)
 
 bool z3yFreeLibrary(HMODULE handle_dll)
 {
-    // todo z3yFreePlugin�о�������ʲô Ϊʲôֻ��GUN����������Ҫ��msvcΪʲô���ã�
+    // todo z3yFreePlugin中具体做了什么 为什么只有GUN编译器才需要，msvc为什么不用？
 #ifdef __GNUC__
     using FuncPtr = void (*)();
     FuncPtr p_func_z3yFreePlugin = (FuncPtr)GetProcAddress(handle_dll, "z3yFreePlugin");

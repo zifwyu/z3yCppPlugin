@@ -66,7 +66,10 @@
     <ClInclude Include="..\..\..\interface\core\module\singleton_object.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\interface\core\module\class_macro.h">
+    <ClInclude Include="..\..\..\interface\core\module\impl_class_macro.h">
+      <Filter>Interface Files\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\interface\core\module\plugin_impl.h">
       <Filter>Interface Files\module</Filter>
     </ClInclude>
   </ItemGroup>

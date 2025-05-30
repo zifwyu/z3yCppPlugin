@@ -1,9 +1,9 @@
 /**
 * @file	class_entry.h
-* @brief ¶¨ÒåÁË²å¼şÀàµÄµ¼³ö°ïÖúÀà£¬´ËÀàÖĞ°üº¬ÊµÀı»¯Ò»¸ö²å¼şÀàµÄËùÓĞĞÅÏ¢
+* @brief å®šä¹‰äº†æ’ä»¶ç±»çš„å¯¼å‡ºå¸®åŠ©ç±»ï¼Œæ­¤ç±»ä¸­åŒ…å«å®ä¾‹åŒ–ä¸€ä¸ªæ’ä»¶ç±»çš„æ‰€æœ‰ä¿¡æ¯
 *
 * @version	1.0
-* @author	ËïÅôÓî
+* @author	å­™é¹å®‡
 * @date		2025.5.15
 */
 
@@ -11,44 +11,56 @@
 #ifndef Z3Y_CORE_CLASS_ENTRY_H
 #define Z3Y_CORE_CLASS_ENTRY_H
 
-#include "../IObject.h"
+#include "../iobject.h"
 
 Z3Y_BEGIN_NAMESPACE
 
-using FuncPtrObjectCreator = IObject* (*)(InterfaceID interface_id);
-using FuncPtrHasInterfaceID = bool (*)(InterfaceID interface_id);
-
-// todo ÎªÊ²Ã´Ö»¶¨ÒåÁËµ¥ÀıÄ£Ê½£¿ÎªÊ²Ã´ÊÇ10£¿
-enum { MIN_SINGLETON_TYPE = 10 };
+using FuncPtrObjectCreator = IObject* (*)(const InterfaceID& interface_id);
+using FuncPtrHasInterfaceID = bool (*)(const InterfaceID& interface_id);
 
 /**
-* @brief ²å¼şÊµÏÖÀàµÄÈë¿Ú
-* @details ±¾ÀàµÄ³ÉÔ±±äÁ¿£¬°üº¬ÁË´´½¨Ò»¸ö²å¼şÀàÊµÀıËùĞèµÄĞÅÏ¢
-*	Í¨¹ıÕâĞ©±äÁ¿ÖĞµÄĞÅÏ¢£¬¿ÉÒÔ¹¹Ôì³öÒ»¸ö²å¼şÀàµÄ¶ÔÏó
+* @brief æšä¸¾ä»£è¡¨å¯¼å‡ºç±»çš„ç±»å‹ï¼Œæ™®é€šorå•ä¾‹
+* @note
+*	åŒ¿åæšä¸¾çš„æ ¸å¿ƒä½œç”¨æ˜¯å°†ä¸€ç»„å¸¸é‡ï¼ˆå¦‚ kSingletonTypeï¼‰ç›´æ¥å¼•å…¥å½“å‰ä½œç”¨åŸŸï¼ˆä¾‹å¦‚å…¨å±€ä½œç”¨åŸŸã€ç±»ä½œç”¨åŸŸæˆ–å‘½åç©ºé—´ï¼‰ï¼Œ
+*	ä½¿å…¶åƒå®å®šä¹‰ä¸€æ ·å¯ç›´æ¥ä½¿ç”¨ï¼Œä½†å…·å¤‡ç±»å‹å®‰å…¨å’Œç¼–è¯‘æœŸæ£€æŸ¥çš„ä¼˜åŠ¿
+*/
+enum class ClassType
+{
+	kNormalType,
+	kSingletonType
+};
+
+/**
+* @brief æ’ä»¶å®ç°ç±»çš„å…¥å£
+* @details æœ¬ç±»çš„æˆå‘˜å˜é‡ï¼ŒåŒ…å«äº†åˆ›å»ºä¸€ä¸ªæ’ä»¶ç±»å®ä¾‹æ‰€éœ€çš„ä¿¡æ¯
+*	é€šè¿‡è¿™äº›å˜é‡ä¸­çš„ä¿¡æ¯ï¼Œå¯ä»¥æ„é€ å‡ºä¸€ä¸ªæ’ä»¶ç±»çš„å¯¹è±¡
 */
 class ClassEntry
 {
 public:
-	int class_type; //ÀàµÄÀàĞÍ£¬ÆÕÍ¨orµ¥Àı
+	ClassType class_type{ ClassType::kNormalType }; //ç±»çš„ç±»å‹ï¼Œæ™®é€šorå•ä¾‹
 	const char* class_name;
 	const char* impl_class_id;
-	FuncPtrObjectCreator p_func_object_creator; //ÓÃÀ´´´½¨¶ÔÏóµÄº¯ÊıÖ¸Õë
-	FuncPtrHasInterfaceID p_func_has_interface_id; //ÅĞ¶ÏÊÇ·ñÊµÏÖÁËÄ³¸ö½Ó¿Ú
+	FuncPtrObjectCreator p_func_object_creator{ nullptr }; //ç”¨æ¥åˆ›å»ºå¯¹è±¡çš„å‡½æ•°æŒ‡é’ˆ
+	FuncPtrHasInterfaceID p_func_has_interface_id{ nullptr }; //åˆ¤æ–­æ˜¯å¦å®ç°äº†æŸä¸ªæ¥å£
 
-	ClassEntry() : class_type(0), class_name(""), impl_class_id(""), p_func_object_creator(nullptr), p_func_has_interface_id(nullptr)
+	ClassEntry() : class_type(ClassType::kNormalType), class_name(""), impl_class_id(""), p_func_object_creator(nullptr), p_func_has_interface_id(nullptr)
 	{
 	}
 
-	ClassEntry(int _type, const char* _class_name,
+	ClassEntry(ClassType _type, const char* _class_name,
 		const char* _impl_class_id, FuncPtrObjectCreator _creator, FuncPtrHasInterfaceID _hasiid)
 		: class_type(_type), class_name(_class_name), impl_class_id(_impl_class_id), p_func_object_creator(_creator), p_func_has_interface_id(_hasiid)
 	{
 	}
 
-	// ClassEntryÀà¶ÔÏó×é³ÉµÄÊı×é£¬´æ´¢ÁË±¾DLLËùÓĞµ¼³öµÄ²å¼şÀàµÄ¹¹ÔìĞÅÏ¢
-	// ¾²Ì¬±äÁ¿£¬Ö¸ÕëÀàĞÍ£¬Ö¸ÏòClassEntryÀà¶ÔÏó×é³ÉµÄÊı×éµÄÊ×µØÖ·
-	// ±¾±äÁ¿ÔÚ´Ë´¦ÉùÃ÷£¬ÔÚDLLµ¼³ö²å¼şµÄcpp´úÂë´¦½øĞĞ¶¨Òå
-	// ±¾±äÁ¿²»»áµ¼³ö£¬Ö»»á±»Í¬Ò»¸öDLLÖĞµÄ´úÂë·ÃÎÊ
+	// ClassEntryç±»å¯¹è±¡ç»„æˆçš„æ•°ç»„çš„æ•°ç»„ï¼Œå­˜å‚¨äº†æœ¬DLLæ‰€æœ‰å¯¼å‡ºçš„æ’ä»¶ç±»çš„æ„é€ ä¿¡æ¯
+	// é™æ€å˜é‡ï¼ŒäºŒç»´æŒ‡é’ˆæ•°ç»„ç±»å‹ï¼Œclasses[]ä¸­æ¯ä¸ªå…ƒç´ éƒ½æ˜¯ClassEntry*æŒ‡é’ˆï¼ŒæŒ‡å‘ClassEntryç±»å¯¹è±¡ç»„æˆçš„æ•°ç»„æˆ–å•ä¸ªå¯¹è±¡
+	// æœ¬æ•°ç»„åœ¨æ­¤å¤„å£°æ˜ï¼Œåœ¨DLLå¯¼å‡ºæ’ä»¶çš„cppä»£ç å¤„è¿›è¡Œå®šä¹‰
+	// æœ¬æ•°ç»„ä¸ä¼šå¯¼å‡ºï¼Œåªä¼šè¢«åŒä¸€ä¸ªDLLä¸­çš„ä»£ç è®¿é—®
+	// äºŒç»´æŒ‡é’ˆæ•°ç»„æ˜¯æ•°ç»„å…ƒç´ å‡ä¸ºæŒ‡é’ˆçš„æ•°ç»„ï¼Œå…¶æœ¬è´¨æ˜¯â€œæ•°ç»„çš„æ•°ç»„â€ï¼Œæ¯ä¸ªå…ƒç´ æŒ‡å‘å¦ä¸€æ®µå†…å­˜ï¼ˆå¯èƒ½æ˜¯ä¸€ç»´æ•°ç»„æˆ–å•ä¸ªå¯¹è±¡ï¼‰
+	// const ClassEntry*ï¼šè¡¨ç¤ºæŒ‡é’ˆæŒ‡å‘çš„ ClassEntry å¯¹è±¡æ˜¯å¸¸é‡ï¼ˆå†…å®¹ä¸å¯ä¿®æ”¹ï¼‰
+	// const classes[]ï¼šè¡¨ç¤ºclasses[]æ•°ç»„æœ¬èº«æ˜¯å¸¸é‡ï¼ˆæ•°ç»„åœ°å€ä¸å¯ä¿®æ”¹ï¼‰
 	static const ClassEntry* const  classes[];
 };
 

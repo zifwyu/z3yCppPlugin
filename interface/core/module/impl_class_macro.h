@@ -1,19 +1,19 @@
 /**
-* @file	class_macro.h
-* @brief �����˲������й������Ԫ���ݵ�һЩ��
+* @file	impl_class_macro.h
+* @brief 定义了插件框架中关于实现类的元数据的一些宏
 *
-* @version	1.0
-* @author	������
-* @date		2025.5.22
+* @version	1.1
+* @author	孙鹏宇
+* @date		2025.5.30
 */
 
 #pragma once
-#ifndef Z3Y_CORE_CLASS_MECRO_H
-#define Z3Y_CORE_CLASS_MECRO_H
+#ifndef Z3Y_CORE_IMPL_CLASS_MECRO_H
+#define Z3Y_CORE_IMPL_CLASS_MECRO_H
 
 
 /**
-* @brief ʵ����ӿ������Ŀ�ʼ
+* @brief 实现类接口声明的开始
 */
 #define Z3Y_BEGIN_IMPL_CLASS_DECLARE(impl_class_name, impl_class_id) \
 public: \
@@ -23,20 +23,20 @@ public: \
 	{
 
 /**
-* @brief ��ĳ��ʵ����ֻ��Ҫ��ѯ������Ҫ��ȡ���ID������ʱ��ʹ�ñ���
+* @brief 当某个实现类只需要查询，不需要获取类的ID和名称时，使用本宏
 * @todo 
-*	����ʲô�������ã�Ϊʲô���������Ӧ��ʱȷ��֪��ʵ���಻�ᱻʵ��������������̳е�ʱ��ʹ�á�
-*	�б�Ҫ�����𣿶ඨ����������Ҳûʲô�����Ƿ�ֹʹ���ߴ���Ľ����ñ�ʵ������ʵ�����ʵ��������
+*	具体什么场景下用？为什么有这个需求？应当时确定知道实现类不会被实例化，还有子类继承的时候使用。
+*	有必要这样吗？多定义两个函数也没什么，还是防止使用者错误的将不该被实例化的实现类给实例化出来
 */
 #define Z3Y_BEGIN_IMPL_CLASS_DECLARE0(impl_class_name, impl_class_id) \
 	static bool _QueryObject(const impl_class_name* self, z3y::InterfaceID interface_id, z3y::IObject** ppv) \
 	{
 
 /**
-* @brief ��ʵ�����ͷ�ļ��У�����ʵ�ֵĽӿ�
+* @brief 在实现类的头文件中，声明实现的接口
 * @note
-*	����ʹ��˫��ת����Ϊ�˷�ֹ�̳ж���ӿ�ʱ��ָ��Ĵ���ƫ��
-*	todo ����Ҫ��֤һ�£�Ҫ�������
+*	这里使用双重转换是为了防止继承多个接口时，指针的错误偏移
+*	todo 这里要验证一下，要深度理解
 */
 #define Z3Y_DEFINE_INTERFACE_ENTRY(interface_name) \
 		if(interface_id == interface_name::GetInterfaceID()) \
@@ -50,7 +50,7 @@ public: \
 		}
 
 /**
-* @brief ��ʵ����ĸ���Ҳ��ʵ�����ʱ��ʹ�ô˺�����
+* @brief 当实现类的父类也是实现类的时候，使用此宏声明
 */
 #define Z3Y_USE_BASE_IMPL_CLASS_INTERFACE_ENTRY(base_impl_class) \
 		if(base_impl_class::_QueryObject(self, interface_id, ppv)) \
@@ -61,6 +61,6 @@ public: \
 #define Z3Y_END_IMPL_CLASS_DECLARE() \
 		return false; \
 	} \
-protected: //	ʵ����ĺ���������public
+protected: //	实现类的函数不必是public，只要接口的虚函数是public就够了
 
-#endif // !Z3Y_CORE_CLASS_MECRO_H
+#endif // !Z3Y_CORE_IMPL_CLASS_MECRO_H

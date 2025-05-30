@@ -1,9 +1,9 @@
 /**
 * @file	object_ptr.h
-* @brief ¶¨ÒåÁËÖÇÄÜÖ¸ÕëÀàÄ£°å£¬Íâ½çµ÷ÓÃ²å¼şÊ±£¬Í³Ò»Ê¹ÓÃ¸ÃÄ£°å¹ÜÀí²å¼ş¶ÔÏóÖ¸Õë
+* @brief å®šä¹‰äº†æ™ºèƒ½æŒ‡é’ˆç±»æ¨¡æ¿ï¼Œå¤–ç•Œè°ƒç”¨æ’ä»¶æ—¶ï¼Œç»Ÿä¸€ä½¿ç”¨è¯¥æ¨¡æ¿ç®¡ç†æ’ä»¶å¯¹è±¡æŒ‡é’ˆ
 *
 * @version	1.0
-* @author	ËïÅôÓî
+* @author	å­™é¹å®‡
 * @date		2025.5.14
 */
 
@@ -11,7 +11,7 @@
 #ifndef Z3Y_CORE_OBJECT_PTR_H
 #define Z3Y_CORE_OBJECT_PTR_H
 
-#include "IObject.h"
+#include "iobject.h"
 #include "portability/z3y_export.h"
 
 Z3Y_BEGIN_NAMESPACE
@@ -19,10 +19,10 @@ Z3Y_BEGIN_NAMESPACE
 Z3Y_LOCAL_API bool CreateObject(const char* impl_class_id, const InterfaceID& interface_id, IObject** ppv);
 
 /**
-* @brief ÖÇÄÜÖ¸ÕëÀàÄ£°å
+* @brief æ™ºèƒ½æŒ‡é’ˆç±»æ¨¡æ¿
 * @note
-*	Í¨¹ıÊµÏÖÀàµÄID´´½¨¶ÔÏó£¬²¢½«Ö¸Õë×ªÎª½Ó¿ÚÀàĞÍ£¬²¢¹ÜÀíÉúÃüÖÜÆÚ.
-*	Íâ½çµ÷ÓÃ²å¼şÊ±£¬Í³Ò»Í¨¹ı±¾Àà½øĞĞÊµÀı»¯
+*	é€šè¿‡å®ç°ç±»çš„IDåˆ›å»ºå¯¹è±¡ï¼Œå¹¶å°†æŒ‡é’ˆè½¬ä¸ºæ¥å£ç±»å‹ï¼Œå¹¶ç®¡ç†ç”Ÿå‘½å‘¨æœŸ.
+*	å¤–ç•Œè°ƒç”¨æ’ä»¶æ—¶ï¼Œç»Ÿä¸€é€šè¿‡æœ¬ç±»è¿›è¡Œå®ä¾‹åŒ–
 */
 template <class InterfaceClass> class ObjectPtr
 {
@@ -30,12 +30,12 @@ public:
 	ObjectPtr() : p_impl_class_(nullptr) {}
 
 	/**
-	* @brief ¹¹Ôìº¯ÊıÖĞÊäÈëÒª´´½¨µÄÊµÏÖÀàID£¬»á×Ô¶¯´´½¨
+	* @brief æ„é€ å‡½æ•°ä¸­è¾“å…¥è¦åˆ›å»ºçš„å®ç°ç±»IDï¼Œä¼šè‡ªåŠ¨åˆ›å»º
 	*/
 	ObjectPtr(const char* impl_class_id)
 		: p_impl_class_(nullptr)
 	{
-		//¸ù¾İ½Ó¿ÚÀàºÍÊµÏÖÀàµÄID´´½¨ÊµÀı»¯£¬ÀàĞÍÊÇ½Ó¿ÚÀàÖ¸Õë£¬Ö¸ÏòÊµÏÖÀàµÄ¶ÔÏó 
+		//æ ¹æ®æ¥å£ç±»å’Œå®ç°ç±»çš„IDåˆ›å»ºå®ä¾‹åŒ–ï¼Œç±»å‹æ˜¯æ¥å£ç±»æŒ‡é’ˆï¼ŒæŒ‡å‘å®ç°ç±»çš„å¯¹è±¡ 
 		CreateObject(impl_class_id, InterfaceClass::GetInterfaceID(), Address());
 	}
 
@@ -64,9 +64,9 @@ public:
 	}
 
 	/**
-	* @brief ÊÍ·Å¹ÜÀíµÄÂãÖ¸Õë
+	* @brief é‡Šæ”¾ç®¡ç†çš„è£¸æŒ‡é’ˆ
 	* @note
-	*	²å¼ş¿ò¼ÜÖĞ£¬ËùÓĞµÄÊµÏÖÀà¶¼¼Ì³ĞÓÚIObject£¬ËùÒÔ¶¼ÓĞRelease()£¬ÓÃÀ´¼õÉÙÒıÓÃ¼ÆÊı
+	*	æ’ä»¶æ¡†æ¶ä¸­ï¼Œæ‰€æœ‰çš„å®ç°ç±»éƒ½ç»§æ‰¿äºIObjectï¼Œæ‰€ä»¥éƒ½æœ‰Release()ï¼Œç”¨æ¥å‡å°‘å¼•ç”¨è®¡æ•°
 	*/
 	void Release()
 	{
@@ -79,14 +79,14 @@ public:
 
 	ObjectPtr<InterfaceClass>& Create(const char* impl_class_id = "")
 	{
-		//¸ù¾İ½Ó¿ÚÀàºÍÊµÏÖÀàµÄID´´½¨ÊµÀı»¯£¬ÀàĞÍÊÇ½Ó¿ÚÀàÖ¸Õë£¬Ö¸ÏòÊµÏÖÀàµÄ¶ÔÏó 
+		//æ ¹æ®æ¥å£ç±»å’Œå®ç°ç±»çš„IDåˆ›å»ºå®ä¾‹åŒ–ï¼Œç±»å‹æ˜¯æ¥å£ç±»æŒ‡é’ˆï¼ŒæŒ‡å‘å®ç°ç±»çš„å¯¹è±¡ 
 		CreateObject(impl_class_id, InterfaceClass::GetInterfaceID(), Address());
 		return *this;
 	}
 
 	ObjectPtr<InterfaceClass>& operator=(const ObjectPtr<InterfaceClass>& other)
 	{
-		// ÒÑ¾­ÖØÔØÁËbool×ª»»£¬¿´ËÆÅĞ¶ÏµÄother£¬ÆäÊµÅĞ¶ÏµÄÊÇotherÖĞÖ¸ÕëÊÇ·ñÎª¿Õ
+		// å·²ç»é‡è½½äº†boolè½¬æ¢ï¼Œçœ‹ä¼¼åˆ¤æ–­çš„otherï¼Œå…¶å®åˆ¤æ–­çš„æ˜¯otherä¸­æŒ‡é’ˆæ˜¯å¦ä¸ºç©º
 		if (other)
 		{
 			other.p_impl_class_->AddRef();
@@ -103,9 +103,9 @@ public:
 	template <class OtherInterfaceClsss>
 	ObjectPtr<InterfaceClass>& opertaor=(const ObjectPtr<OtherInterfaceClsss>& other)
 	{
-		// ÕâÀïÎªÊ²Ã´ÒªÅĞ¶ÏInterfaceClass::GetInterfaceID() == OtherInterfaceClsss::GetInterfaceID()
-		// GetInterfaceID()µÄÔ­ÀíÊÇ½Ó¿ÚÃû³Æ×Ö·û´®¹şÏ£Ëã·¨£¬½Ó¿ÚÃû³Æ²»Í¬£¬½á¹û¿Ï¶¨²»Í¬
-		// todo ÕâÀïÒª²âÊÔ£¬ÊÇ·ñÊÇÎŞÓÃÂß¼­Òª²»ÒªÉ¾³ı
+		// è¿™é‡Œä¸ºä»€ä¹ˆè¦åˆ¤æ–­InterfaceClass::GetInterfaceID() == OtherInterfaceClsss::GetInterfaceID()
+		// GetInterfaceID()çš„åŸç†æ˜¯æ¥å£åç§°å­—ç¬¦ä¸²å“ˆå¸Œç®—æ³•ï¼Œæ¥å£åç§°ä¸åŒï¼Œç»“æœè‚¯å®šä¸åŒ
+		// todo è¿™é‡Œè¦æµ‹è¯•ï¼Œæ˜¯å¦æ˜¯æ— ç”¨é€»è¾‘è¦ä¸è¦åˆ é™¤
 		if (InterfaceClass::GetInterfaceID() == OtherInterfaceClsss::GetInterfaceID()
 			|| InterfaceClass::GetInterfaceID() == IObject::GetInterfaceID())
 		{
@@ -137,9 +137,9 @@ public:
 				{
 					p_other->AddRef();
 
-					// ÕâÀï±ØĞë±£Ö¤p_otherÖ¸ÕëÊÇ·ÇconstµÄ£¬Ö»ÊÇÒòÎª½Ó¿Ú´«µİ²Å±äÎªconst
-					// Èôp_other±¾Éí¾ÍÊÇconst£¬ÕâÀï½â³ıconst»áµ¼ÖÂÎ´¶¨ÒåĞĞÎª
-					// todo Õâ¸öÕÒ»ú»á²âÒ»ÏÂ£¬¿´¿´»áÓĞÊ²Ã´Î´¶¨ÒåĞĞÎª
+					// è¿™é‡Œå¿…é¡»ä¿è¯p_otheræŒ‡é’ˆæ˜¯éconstçš„ï¼Œåªæ˜¯å› ä¸ºæ¥å£ä¼ é€’æ‰å˜ä¸ºconst
+					// è‹¥p_otheræœ¬èº«å°±æ˜¯constï¼Œè¿™é‡Œè§£é™¤constä¼šå¯¼è‡´æœªå®šä¹‰è¡Œä¸º
+					// todo è¿™ä¸ªæ‰¾æœºä¼šæµ‹ä¸€ä¸‹ï¼Œçœ‹çœ‹ä¼šæœ‰ä»€ä¹ˆæœªå®šä¹‰è¡Œä¸º
 					p_impl_class_ = static<InterfaceClass*>(const_cast<IObject*>(p_other));
 				}
 				else
@@ -155,7 +155,7 @@ public:
 	{
 		if (!p_impl_class_)
 		{
-			// todo ÕâÀïÊÇ·ñÒªÅ×³öÒì³££¿
+			// todo è¿™é‡Œæ˜¯å¦è¦æŠ›å‡ºå¼‚å¸¸ï¼Ÿ
 		}
 		return p_impl_class_;
 	}
@@ -181,18 +181,18 @@ public:
 	}
 
 	/**
-	* @brief ·µ»Ø¹ÜÀíµÄÂãÖ¸ÕëÊÇ·ñ²»Îª¿Õ
+	* @brief è¿”å›ç®¡ç†çš„è£¸æŒ‡é’ˆæ˜¯å¦ä¸ä¸ºç©º
 	*/
 	bool Vaild() const
 	{
-		// Á½´ÎÈ¡·´£¬¿É½«Ö¸Õë×ªÎªboolĞÍ
-		// µÈ¼ÛÓÚstatic_cast<bool>(p_impl_class_ != nullptr)
+		// ä¸¤æ¬¡å–åï¼Œå¯å°†æŒ‡é’ˆè½¬ä¸ºboolå‹
+		// ç­‰ä»·äºstatic_cast<bool>(p_impl_class_ != nullptr)
 		return !!p_impl_class_;
 	}
 
 	/**
-	* @brief »ñÈ¡¹ÜÀíµÄÂãÖ¸Õë
-	* @warning »ñÈ¡ÂãÖ¸Õëºó£¬²»ÄÜ½øĞĞdelete²Ù×÷
+	* @brief è·å–ç®¡ç†çš„è£¸æŒ‡é’ˆ
+	* @warning è·å–è£¸æŒ‡é’ˆåï¼Œä¸èƒ½è¿›è¡Œdeleteæ“ä½œ
 	*/
 	InterfaceClass* GetRawPoint() const
 	{
@@ -202,10 +202,10 @@ public:
 private:
 
 	/**
-	* @brief »ñÈ¡p_impl_class_Ö¸ÕëµÄµØÖ·
+	* @brief è·å–p_impl_class_æŒ‡é’ˆçš„åœ°å€
 	* @warning
-	*	¸Ãº¯ÊıÓÃÓÚÄÃµ½Ö¸ÕëµØÖ·ºó£¬Ö±½ÓĞŞ¸ÄÖ¸Õë±¾Éí
-	*	²»Ó¦±»Íâ½çµ÷ÓÃ
+	*	è¯¥å‡½æ•°ç”¨äºæ‹¿åˆ°æŒ‡é’ˆåœ°å€åï¼Œç›´æ¥ä¿®æ”¹æŒ‡é’ˆæœ¬èº«
+	*	ä¸åº”è¢«å¤–ç•Œè°ƒç”¨
 	*/
 	IObject** Address()
 	{
@@ -214,7 +214,7 @@ private:
 	}
 
 private:
-	InterfaceClass* p_impl_class_; /// ½Ó¿ÚÀàĞÍµÄÖ¸Õë£¬Ö¸ÏòµÄÊÇÊµÏÖÀàµÄ¶ÔÏó¡£
+	InterfaceClass* p_impl_class_; /// æ¥å£ç±»å‹çš„æŒ‡é’ˆï¼ŒæŒ‡å‘çš„æ˜¯å®ç°ç±»çš„å¯¹è±¡ã€‚
 };
 
 using AnyObjectPtr = ObjectPtr<IObject>;
